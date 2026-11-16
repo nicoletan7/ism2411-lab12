@@ -1,12 +1,12 @@
 # Reflection 1:
 # Python and Excel can both read sales data, calculate totals, and filter rows.
-# Python makes repeating the process across many files easier to automate.
+#Python can repeat multiple processes quicker and easier.
 # Excel makes quick visual checks, manual edits, and charts easier without code.
-#
+
 # Reflection 2:
-# A store could log the date, time, and revenue of each nightly sales import.
+# A store could log the date, time, and revenue of each sales import.
 # Append mode preserves earlier entries instead of replacing them.
-# This history helps employees investigate missing runs or unusual totals.
+# This history helps employees find out missing information.
 
 import csv
 from datetime import datetime
