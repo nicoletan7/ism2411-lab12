@@ -98,3 +98,53 @@ with open(
             written_count += 1
 
 print(f"Wrote {written_count} of {len(orders)} original rows.")
+
+
+# Exercise 6: Read columns by name.
+# Prefer csv.reader for simple files with a known, fixed column order.
+# Prefer DictReader for readable field names or changing column order.
+print("\nEXERCISE 6: DictReader")
+
+dict_total = 0
+
+with open("data/sales.csv", newline="", encoding="utf-8") as file:
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        product = row["product"]
+        price = float(row["price"])
+        quantity = int(row["quantity"])
+        total = round(price * quantity, 2)
+
+        dict_total += total
+
+        print(
+            f"{product}: {quantity} units × "
+            f"${price:.2f} = ${total:.2f}"
+        )
+
+dict_total = round(dict_total, 2)
+print(f"DictReader total: ${dict_total:.2f}")
+
+assert dict_total == total_revenue
+print("The total matches Exercise 4.")
+
+
+# Exercise 7: Accumulate revenue by product.
+print("\nEXERCISE 7: Sales summary")
+
+summary = {}
+
+with open("data/sales.csv", newline="", encoding="utf-8") as file:
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        product = row["product"]
+        price = float(row["price"])
+        quantity = int(row["quantity"])
+        revenue = round(price * quantity, 2)
+
+        summary[product] = summary.get(product, 0) + revenue
+
+for product in sorted(summary):
+    print(f"{product}: ${summary[product]:.2f}")
