@@ -148,3 +148,16 @@ with open("data/sales.csv", newline="", encoding="utf-8") as file:
 
 for product in sorted(summary):
     print(f"{product}: ${summary[product]:.2f}")
+
+
+# Exercise 8: Append one entry per script execution.
+print("\nEXERCISE 8: Append run log")
+
+timestamp = datetime.now().isoformat(timespec="microseconds")
+
+with open("data/run_log.txt", "a", encoding="utf-8") as file:
+    file.write(
+        f"{timestamp} | Total revenue: ${total_revenue:.2f}\n"
+    )
+
+print("Added one entry to data/run_log.txt.")
