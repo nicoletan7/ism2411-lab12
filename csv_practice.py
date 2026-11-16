@@ -49,3 +49,52 @@ with open("data/sales.csv", newline="", encoding="utf-8") as file:
 
     for row in reader:
         print(row)
+
+
+# Exercise 4: Calculate revenue for each order.
+print("\nEXERCISE 4: Calculate totals")
+
+total_revenue = 0
+orders = []
+
+with open("data/sales.csv", newline="", encoding="utf-8") as file:
+    reader = csv.reader(file)
+    next(reader)
+
+    for row in reader:
+        product = row[0]
+        price = float(row[1])
+        quantity = int(row[2])
+        total = round(price * quantity, 2)
+
+        total_revenue += total
+        orders.append([product, price, quantity, total])
+
+        print(
+            f"{product}: {quantity} units × "
+            f"${price:.2f} = ${total:.2f}"
+        )
+
+total_revenue = round(total_revenue, 2)
+print(f"Overall total revenue: ${total_revenue:.2f}")
+
+
+# Exercise 5: Write orders with totals greater than $100.
+print("\nEXERCISE 5: Write cleaned.csv")
+
+written_count = 0
+
+with open(
+    "data/cleaned.csv", "w", newline="", encoding="utf-8"
+) as file:
+    writer = csv.writer(file)
+    writer.writerow(["Product", "Price", "Qty", "Total"])
+
+    for product, price, quantity, total in orders:
+        if total > 100:
+            writer.writerow(
+                [product, f"{price:.2f}", quantity, f"{total:.2f}"]
+            )
+            written_count += 1
+
+print(f"Wrote {written_count} of {len(orders)} original rows.")
